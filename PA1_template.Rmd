@@ -121,3 +121,4 @@ plot<- ggplot(activitydate, aes(x = interval , y = steps, color = datetype)) +
        facet_wrap(~datetype, ncol = 1, nrow=2)
 print(plot)
 ```
+
