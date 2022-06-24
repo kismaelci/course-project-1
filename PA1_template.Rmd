@@ -10,7 +10,7 @@ activity <- read.csv("activity.csv")
 preprocessing the data
 
 ```{r Process/transform the data (if necessary) into a format suitable for your analysis, echo = TRUE}
-activity$date <- as.POSIXct(activity$date, "%Y-%m-%d")
+activity$date <- as.POSIXct(activity$date, "%Y-%m-%d", format = "%Y-%m-%d", tz = "")
 weekday <- weekdays(activity$date)
 activity <- cbind(activity,weekday)
 str(activity)
