@@ -22,8 +22,8 @@ Calculate the total number of steps taken per day
 
 ```{r total number of steps taken per day, echo = TRUE}
 stepsperday <- with(activity, aggregate(steps, by = list(date), FUN = sum, na.rm = TRUE))
-names(stepsperday) <- c("date", "steps")
-
+colnames(stepsperday) <- c("date", "steps")
+stepsperday
 ```
 
 Make a histogram of the total number of steps taken each day
@@ -35,13 +35,15 @@ hist(stepsperday$steps, main = "histogram of the total number of steps taken eac
 Calculate and report the mean of the total number of steps taken per day
 
 ```{r mean of the total number of steps, echo = TRUE}
-mean(stepsperday$steps)
+mymean <- mean(stepsperday$steps)
+mymean
 ```
 
 Calculate and report the median of the total number of steps taken per day
 
 ```{r median of the total number of steps, echo = TRUE}
-median(stepsperday$steps)
+mymedian <- median(stepsperday$steps)
+mymedian
 ```
 
 What is the average daily activity pattern?
@@ -66,7 +68,8 @@ Imputing missing values
 Calculate and report the total number of missing values in the dataset
 
 ```{r total number of NA values in the dataset, echo = TRUE}
-sum(is.na(activity$steps))
+mysumNA <- sum(is.na(activity$steps) == TRUE)
+mysumNA
 ```
 
 Create a new dataset that is equal to the original dataset but with the missing data filled in
@@ -75,7 +78,8 @@ Create a new dataset that is equal to the original dataset but with the missing 
 newactivity <- averagestepsperday$mean[match(activity$interval, averagestepsperday$interval)]
 newactivity <- transform(activity, steps = ifelse(is.na(activity$steps), yes = newactivity, no = activity$steps))
 allactivity <- aggregate(steps ~ date, newactivity, sum)
-names(allactivity) <- c("date", "stepsbyday")
+colnames(allactivity) <- c("date", "stepsbyday")
+allactivity
 ```
 
 Make a histogram of the total number of steps taken each day
@@ -87,13 +91,15 @@ hist(allactivity$stepsbyday, xlab = "total number of steps taken each day", main
 Calculate and report the mean of the total number of steps taken per day
 
 ```{r new mean of the total number of steps after imputing, echo = TRUE}
-mean(allactivity$stepsbyday)
+mynewmean <- mean(allactivity$stepsbyday)
+mynewmean
 ```
 
 Calculate and report the median of the total number of steps taken per day
 
 ```{r new median of the total number of steps after imputing, echo = TRUE}
-median(allactivity$stepsbyday)
+mynewmedian <- median(allactivity$stepsbyday)
+mynewmedian
 ```
 
 Are there differences in activity patterns between weekdays and weekends?
